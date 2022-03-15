@@ -3,6 +3,8 @@ import {Avatar, Button, CssBaseline, TextField, Link,
         Grid, Box, Typography, Container} from '@mui/material/';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createUser } from '../utils/calls'
+
 
 const theme = createTheme();
 
@@ -10,10 +12,15 @@ export default function SignUp() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const userData = {
+      username: data.get('username'),
+      password_digest: data.get('password'),
+      firstname: data.get('firstName'), 
+      lastname: data.get('lastName'),
+    }
+
+    console.log(userData);
+    createUser(userData)
   };
 
   return (
@@ -61,10 +68,10 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
                 />
               </Grid>
               <Grid item xs={12}>
