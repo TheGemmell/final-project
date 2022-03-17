@@ -1,20 +1,25 @@
-import { handleCallError } from './functions'
-
 const baseUrl:string = 'http://localhost:3001/api/v1'
 
-export function createUser(body: object) {
+export async function createUser(body: object) {
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     };
 
-    fetch(`${baseUrl}/users`, options)
+    const answer = await fetch(`${baseUrl}/users`, options)
         .then(response => {
-            handleCallError(response)
-            return response.json()
+            if (response.ok) {
+                return response.json()
+            }
+            throw response
         })
         .then(response => {
-            console.log(response)
+            return response
         })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    return answer
 }
