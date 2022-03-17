@@ -1,15 +1,17 @@
 import * as React from 'react';
+import Loader from './Spinner';
 import {Avatar, Button, CssBaseline, TextField, Link,
         Grid, Box, Typography, Container} from '@mui/material/';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createUser } from '../utils/calls'
+import { toast } from 'react-hot-toast';
 
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const userData = {
@@ -19,8 +21,12 @@ export default function SignUp() {
       lastname: data.get('lastName'),
     }
 
-    console.log(userData);
-    createUser(userData)
+    const user = createUser(userData)
+    toast.promise(user, {
+      loading: <Loader show />,
+      success: (data) => `Welcome ${data.firstname}!`,
+      error: (err) => `Error: ${err.statusText}`,
+    });
   };
 
   return (
