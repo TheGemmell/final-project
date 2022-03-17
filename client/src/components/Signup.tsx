@@ -10,21 +10,25 @@ import { toast } from 'react-hot-toast';
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUp(): JSX.Element {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const userData = {
-      username: data.get('username'),
-      password_digest: data.get('password'),
-      firstname: data.get('firstName'), 
-      lastname: data.get('lastName'),
+      user: {
+        username: data.get('username'),
+        password: data.get('password'),
+        firstname: data.get('firstName'), 
+        lastname: data.get('lastName')
+      }
     }
 
     const user = createUser(userData)
     toast.promise(user, {
       loading: <Loader show />,
-      success: (data) => `Welcome ${data.firstname}!`,
+      success: (data) => {
+        return `Welcome ${data.user.firstname}!`
+      },
       error: (err) => `Error: ${err.statusText}`,
     });
   };
