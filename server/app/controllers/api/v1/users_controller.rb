@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.valid?
       # Produce 
       @token = encode_token(user_id: @user.id)
-      render json: { user: @user, token: @token }, status: :created
+      render json: { user: {username: @user.username, firstname: @user.firstname, lastname: @user.lastname }, token: @token }, status: :created
     else
       render json: { error: @user.errors }, status: :unprocessable_entity
     end
