@@ -1,13 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { actions } from './store/index'
+
 function App() {
+  
+  const userState = useSelector((globalState) => globalState);
+  console.log('Auth: ', userState)
+
+  const dispatch = useDispatch();
+  const AllActions = bindActionCreators(actions, dispatch);
+
+  const { signUp, logIn } = AllActions;
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
+      <button onClick={() => signUp('Chris')}>Sign up</button>
+      
     </div>
   );
 }

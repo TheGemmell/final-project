@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Login from './components/Login';
-import Signup from './components/Signup';
 import reportWebVitals from './reportWebVitals';
 
 import { Toaster } from 'react-hot-toast';
@@ -14,8 +12,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={Store}>
       <App />
-      {/* <Login /> */}
-      {/* <Signup /> */}
       <Toaster />
     </Provider>
   </React.StrictMode>,
