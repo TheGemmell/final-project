@@ -7,13 +7,17 @@ import { actions } from './store/index'
 
 function App() {
   
+  
+  const dispatch = useDispatch();
+  const AllActions = bindActionCreators(actions, dispatch);
   const userState = useSelector((globalState) => globalState);
   console.log('Auth: ', userState)
 
-  const dispatch = useDispatch();
-  const AllActions = bindActionCreators(actions, dispatch);
-
   const { signUp, logIn } = AllActions;
+
+  if (userState) {
+    console.log(userState)
+  }
   
   
   return (
