@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Loader from './Spinner';
-import {Avatar, Button, CssBaseline, TextField, Link,
-        Grid, Box, Typography, Container} from '@mui/material/';
+import { Avatar, Button, CssBaseline, TextField, Link,
+        Grid, Box, Typography, Container } from '@mui/material/';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createUser } from '../utils/calls'
@@ -27,6 +27,7 @@ export default function SignUp(): JSX.Element {
     toast.promise(user, {
       loading: <Loader show />,
       success: (data) => {
+        console.log(data)
         return `Welcome ${data.user.firstname}!`
       },
       error: (err) => `Error: ${err.statusText}`,

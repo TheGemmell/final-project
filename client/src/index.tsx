@@ -2,17 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Login from './components/Login'
-import Signup from './components/Signup'
+import Login from './components/Login';
+import Signup from './components/Signup';
 import reportWebVitals from './reportWebVitals';
+
 import { Toaster } from 'react-hot-toast';
+import { Provider } from 'react-redux';
+import Store from './store/store'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <Login /> */}
-    <Signup />
-    <Toaster />
+    <Provider store={Store}>
+      <App />
+      {/* <Login /> */}
+      {/* <Signup /> */}
+      <Toaster />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
