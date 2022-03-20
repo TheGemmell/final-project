@@ -1,10 +1,17 @@
-import { Reducer, Action } from "redux";
+
+interface Action {
+    type: string,
+    payload: any, 
+}
 
 
 export default function reducer(state:any = {}, action:Action) {
+    console.log('userReducer: ', action)
     switch (action.type) {
         case "signup":
-            return 'Reduced Signup'
+            let token = action.payload.token
+            console.log("Token Received: ", token)
+            return token
         case "login":
             return 'Reduced Login'
         default:

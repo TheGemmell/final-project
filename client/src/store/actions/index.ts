@@ -1,4 +1,5 @@
-// Functions that fire/dispatches actions for the reducers to read and react on
+// Functions that fire/dispatches actions for the 
+// reducers to read and deal with  
 
 export const signUp = (payload:any) => {
     console.log('Action signUp, Payload: ', payload);

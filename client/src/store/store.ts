@@ -7,9 +7,7 @@ const store = createStore(
     reducers,
 
     //Initial State
-    {
-        user: undefined,
-    },
+    {},
 
     //Middleware 
     applyMiddleware(thunk)
