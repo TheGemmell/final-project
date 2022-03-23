@@ -6,11 +6,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createUser } from '../utils/calls'
 import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actions } from '../store';
 
 
 const theme = createTheme();
 
 export default function SignUp(): JSX.Element {
+
+  const dispatch = useDispatch();
+  const AllActions = bindActionCreators(actions, dispatch);
+
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
