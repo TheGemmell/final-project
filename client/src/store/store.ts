@@ -1,17 +1,18 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, Reducer, Action } from 'redux'
 import reducers from './reducers/index'
 import thunk from 'redux-thunk'
+import { DefaultRootState } from 'react-redux';
 
 export type GlobalState = { 
     user: string;
 }
 
-const store = createStore<GlobalState, any, any, any>(
+const store = createStore<DefaultRootState, Action, any, any>(
     //Reducers Go Here
     reducers,
 
     //Initial State
-    { user: "chris" },
+    {},
 
     //Middleware 
     applyMiddleware(thunk)

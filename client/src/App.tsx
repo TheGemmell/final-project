@@ -7,7 +7,6 @@ import { actions } from './store/index'
 
 function App() {
   
-  
   const dispatch = useDispatch();
   const AllActions = bindActionCreators(actions, dispatch);
   const userState = useSelector<GlobalState>((globalState) => globalState.user);
