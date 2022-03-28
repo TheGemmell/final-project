@@ -1,21 +1,20 @@
 import { createStore, applyMiddleware, Reducer, Action } from 'redux'
-import reducers from './reducers/index'
-import thunk from 'redux-thunk'
-import { DefaultRootState } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer from './reducers/userReducer';
 
 export type GlobalState = { 
     user: string;
 }
 
-const store = createStore<DefaultRootState, Action, any, any>(
-    //Reducers Go Here
-    reducers,
-
-    //Initial State
-    {},
-
-    //Middleware 
-    applyMiddleware(thunk)
-)
+const store = configureStore({
+    reducer: {
+        user: userReducer,
+    },
+})
 
 export default store;
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
