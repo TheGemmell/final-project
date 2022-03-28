@@ -5,7 +5,7 @@ export const signUp = (payload:any) => {
     console.log('Action signUp, Payload: ', payload);
     return (dispatch:Function) => {
         dispatch({
-            type: 'signup',
+            type: 'user/signup',
             payload: payload
         })
     }
@@ -15,7 +15,7 @@ export const logIn = (payload:any) => {
     console.log('Action logIn, Payload: ', payload);
     return (dispatch:Function) => {
         dispatch({
-            type: 'login',
+            type: 'user/login',
             payload: payload
         })
     }
