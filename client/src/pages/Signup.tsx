@@ -1,14 +1,15 @@
 import * as React from 'react';
-import Loader from './Spinner';
+import Loader from '../components/Spinner';
 import { Avatar, Button, CssBaseline, TextField, Link,
         Grid, Box, Typography, Container } from '@mui/material/';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createUser } from '../utils/calls'
 import { toast } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../store';
+import { GlobalState } from '../store/store';
 
 
 const theme = createTheme();
@@ -17,7 +18,9 @@ export default function SignUp(): JSX.Element {
 
   const dispatch = useDispatch();
   const AllActions = bindActionCreators(actions, dispatch);
-
+  const userState = useSelector<GlobalState>((globalState) => globalState.user);
+  console.log(userState);
+  const { signUp } = AllActions;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,6 +39,7 @@ export default function SignUp(): JSX.Element {
       loading: <Loader show />,
       success: (data) => {
         console.log(data)
+        signUp(data)
         return `Welcome ${data.user.firstname}!`
       },
       error: (err) => `Error: ${err.statusText}`,
