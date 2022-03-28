@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import Login from '../components/Login'
-import Signup from '../components/Signup'
+import Login from './Login'
+import Signup from './Signup'
 
 export default function LandingPage() {
 

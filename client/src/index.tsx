@@ -2,16 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Login from './pages/Login'
+import SignUp from './pages/Signup';
 import reportWebVitals from './reportWebVitals';
 
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import Store from './store/store'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={Store}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </BrowserRouter>
       <Toaster />
     </Provider>
   </React.StrictMode>,
