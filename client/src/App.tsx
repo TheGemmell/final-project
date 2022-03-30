@@ -1,27 +1,26 @@
 import React from 'react';
 import './App.css';
-import { GlobalState } from './store/store'
-import { useSelector, useDispatch, DefaultRootState } from 'react-redux';
+import { RootState } from './store/store'
+import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { actions } from './store/index'
+import { useNavigate } from 'react-router-dom';
 
 function App() {
-  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const AllActions = bindActionCreators(actions, dispatch);
-  const userState = useSelector<GlobalState>((globalState) => globalState.user);
+  const userState = useSelector((globalState:RootState) => globalState.user);
   console.log('Auth: ', userState)
 
-  const { signUp, logIn } = AllActions;
-
-  if (userState) {
+  if (userState.token) {
+    console.log("Has UserState")
     console.log(userState)
   }
   
   
   return (
     <div className="App">
-      <button onClick={() => signUp('Chris')}>Sign up</button>
+      <h1>Welcome</h1>
       
     </div>
   );
