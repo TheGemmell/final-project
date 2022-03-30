@@ -10,12 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../store';
 import { GlobalState } from '../store/store';
+import { useNavigate } from 'react-router-dom';
 
 
 const theme = createTheme();
 
 export default function SignUp(): JSX.Element {
 
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const AllActions = bindActionCreators(actions, dispatch);
   const userState = useSelector<GlobalState>((globalState) => globalState.user);
@@ -40,6 +42,7 @@ export default function SignUp(): JSX.Element {
       success: (data) => {
         console.log(data)
         signUp(data)
+        navigate('/')
         return `Welcome ${data.user.firstname}!`
       },
       error: (err) => `Error: ${err.statusText}`,
