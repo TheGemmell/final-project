@@ -1,9 +1,8 @@
-import { createStore, applyMiddleware, Reducer, Action } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './reducers/userReducer';
 
 export type GlobalState = { 
-    user: string;
+    user: {};
 }
 
 const store = configureStore({
