@@ -3,17 +3,43 @@ import { Link, Grid,
          Box, Typography, Container, Avatar, Button,
          CssBaseline, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { loginUser } from '../utils/calls';
+import Loader from '../components/Spinner';
+import { toast } from 'react-hot-toast';
+import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
+import { actions } from '../store';
 
 const theme = createTheme();
 
 export default function SignIn(): JSX.Element {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const AllActions = bindActionCreators(actions, dispatch);
+  const { logIn } = AllActions;
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
+    const userData = {
+      user: {
+        username: data.get('username'),
+        password: data.get('password'),
+      }
+    };
+
+    const user = loginUser(userData)
+    toast.promise(user, {
+      loading: <Loader show />,
+      success: (data) => {
+        console.log(data)
+        logIn(data)
+        navigate('/')
+        return `Welcome ${data.user.firstname}!`
+      },
+      error: (err) => `Error: ${err.statusText}`,
     });
   };
 
@@ -71,7 +97,7 @@ export default function SignIn(): JSX.Element {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
