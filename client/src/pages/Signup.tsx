@@ -6,10 +6,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createUser } from '../utils/calls'
 import { toast } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../store';
-import { GlobalState } from '../store/store';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -20,8 +19,6 @@ export default function SignUp(): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const AllActions = bindActionCreators(actions, dispatch);
-  const userState = useSelector<GlobalState>((globalState) => globalState.user);
-  console.log(userState);
   const { signUp } = AllActions;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -122,7 +119,7 @@ export default function SignUp(): JSX.Element {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
