@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import { RootState } from './store/store'
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,12 +11,17 @@ function App() {
   const dispatch = useDispatch();
   const userState = useSelector((globalState:RootState) => globalState.user);
   console.log('Auth: ', userState)
-
-  if (userState.token) {
-    console.log("Has UserState")
-    console.log(userState)
-  }
   
+  useEffect(() => {
+    if (userState.token) {
+      console.log("Has UserState")
+      console.log(userState)
+    } else {
+      navigate('/login')
+    }
+
+  },[userState])
+
   
   return (
     <div className="App">
