@@ -6,8 +6,30 @@ export async function createUser(body: object) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     };
-
     const answer = await fetch(`${baseUrl}/users`, options)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+            throw response
+        })
+        .then(response => {
+            return response
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    return answer
+}
+
+export async function loginUser(body: object) {
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    };
+    const answer = await fetch(`${baseUrl}/login`, options)
         .then(response => {
             if (response.ok) {
                 return response.json()
