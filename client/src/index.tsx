@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Login from './pages/Login'
 import SignUp from './pages/Signup';
+import NavBar from './components/NavBar'
 import reportWebVitals from './reportWebVitals';
 
 import { Toaster } from 'react-hot-toast';
@@ -15,6 +16,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={Store}>
+      <NavBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
