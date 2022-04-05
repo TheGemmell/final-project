@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { actions } from './store/index'
 import { useNavigate } from 'react-router-dom';
+import Home from './pages/Home';
 
 function App() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function App() {
   
   return (
     <div className="App">
-      <h1>Welcome</h1>
+      <Home />
       
     </div>
   );
