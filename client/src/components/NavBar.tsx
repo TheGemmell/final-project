@@ -13,7 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { deepOrange } from '@mui/material/colors';
 import { useSelector } from 'react-redux';
-import { RootState, UserState } from '../store/store';
+import { RootState } from '../store/store';
+import { Image } from '@mui/icons-material';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -21,8 +22,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 export default function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const userState = useSelector((globalState:RootState) => globalState);
-  console.log(userState)
+  const userState = useSelector((globalState:RootState) => globalState.user);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -40,7 +40,11 @@ export default function NavBar() {
   };
 
   const userSettings = () => {
-    const userInitials = `${userState.user.firstname[0]}${userState.user.lastname[0]}`
+    let userInitials = ""
+    if (userState.firstname) {
+      userInitials = `${userState.firstname[0]}`
+    }
+    
     return (
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">
@@ -64,7 +68,7 @@ export default function NavBar() {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting) => (
+          {settings.map((setting: any) => (
             <MenuItem key={setting} onClick={handleCloseUserMenu}>
               <Typography textAlign="center">{setting}</Typography>
             </MenuItem>
@@ -73,19 +77,13 @@ export default function NavBar() {
       </Box>
     )
   }
+
+
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ marginBottom: "1.5vh" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            LOGO
-          </Typography>
-
+          <img id="logo" src='./noNameLogo.png' alt="logo"/>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -128,7 +126,7 @@ export default function NavBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -141,7 +139,7 @@ export default function NavBar() {
               </Button>
             ))}
           </Box>
-          {userState.token ? userSettings() : null}
+          {userState.firstname ? userSettings() : null}
         </Toolbar>
       </Container>
     </AppBar>
