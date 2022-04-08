@@ -6,18 +6,18 @@ import Signup from './Signup'
 export default function Home() {
 
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#f3e5f5',
     ...theme.typography.body2,
-    padding: theme.spacing(1),
+    padding: theme.spacing(0.2),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
   }));
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Item>
-          <h1>Workout App</h1>
+          <h1>Dashboard</h1>
         </Item>
       </Grid>
       <Grid item xs={12}>
