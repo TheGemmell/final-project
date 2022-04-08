@@ -11,20 +11,24 @@ import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import Store from './store/store'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material';
+import Theme from './utils/theme'
 
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={Store}>
-      <NavBar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
+      <ThemeProvider theme={Theme}>
+        <NavBar />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
-      <Toaster />
+          </Routes>
+        </BrowserRouter>
+        <Toaster />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
