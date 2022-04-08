@@ -1,34 +1,48 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
 
-interface Action {
+export interface Action {
     type: string,
     payload: any, 
 }
 
-const initalState = { 
-    user: null,
-    token: null,
+interface UserState {
+    username: null | string,
+    firstname: null | string,
+    lastname: null | string,
+    token: null | string,
 }
 
 const signup = createAction('user/signup')
 const login = createAction('user/login')
 
-const userReducer = createReducer(initalState, (builder) => {
+const initialState = {
+    username: null,
+    firstname: null,
+    lastname: null,
+    token: null,
+} as UserState
+
+const userReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(signup, (state, action:Action) => {
-            console.log('userReducer.ts: User Created: ', state)
+        .addCase(signup, (state:UserState, action:Action) => {
+            console.log('userReducer.ts: User Created: ', action)
             let token = action.payload.token
             let user = action.payload.user
             state.token = token
-            state.user = user
+            state.firstname = user.firstname
+            state.lastname = user.lastname
+            state.username = user.username
         })
-        .addCase(login, (state, action:Action) => {
-            console.log('userReducer.ts: User Logged in: ', state)
+        .addCase(login, (state:UserState, action:Action) => {
+            console.log('userReducer.ts: User Logged in: ', action)
             let token = action.payload.token
             let user = action.payload.user
             state.token = token
-            state.user = user
+            state.firstname = user.firstname
+            state.lastname = user.lastname
+            state.username = user.username
         })
 })
 
 export default userReducer
+
