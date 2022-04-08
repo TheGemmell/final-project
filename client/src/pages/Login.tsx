@@ -4,15 +4,14 @@ import { Link, Grid,
          CssBaseline, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { loginUser } from '../utils/calls';
 import Loader from '../components/Spinner';
 import { toast } from 'react-hot-toast';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import { actions } from '../store';
-
-const theme = createTheme();
+import theme from '../utils/theme';
 
 export default function SignIn(): JSX.Element {
   const navigate = useNavigate();
