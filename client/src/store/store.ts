@@ -1,14 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './reducers/userReducer';
 
-export type UserState = { 
-    user: {
-        firstname: string,
-        lastname: string,
-        username: string,
-    },
-    token: string;
-}
 
 const store = configureStore({
     reducer: {
