@@ -45,3 +45,56 @@ export async function loginUser(body: object) {
         })
     return answer
 }
+
+export async function getWorkouts(token: string) {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`
+        },
+    }
+
+    const answer = fetch(`${baseUrl}/workouts`, options)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+            throw response
+        })
+        .then(response => {
+            return response
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    return answer
+
+}
+
+export async function getExercises(token: string, workoutId: number) {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`
+        },
+    }
+
+    const answer = fetch(`${baseUrl}/workouts/${workoutId}`, options)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+            throw response
+        })
+        .then(response => {
+            return response
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    return answer
+}
