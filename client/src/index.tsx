@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Login from './pages/Login'
 import SignUp from './pages/Signup';
+import Workouts from './pages/Workouts';
 import NavBar from './components/NavBar'
 import reportWebVitals from './reportWebVitals';
 
@@ -13,18 +14,22 @@ import Store from './store/store'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import Theme from './utils/theme'
+import DetailedWorkout from './components/Workout';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={Store}>
       <ThemeProvider theme={Theme}>
-        <NavBar />
         <BrowserRouter>
+        <NavBar />
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/workouts" element={<Workouts />} >
+              <Route path=":workoutId" element={<DetailedWorkout />} />
+            </Route>
           </Routes>
         </BrowserRouter>
         <Toaster />

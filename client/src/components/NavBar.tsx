@@ -14,9 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { deepOrange } from '@mui/material/colors';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { Image } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['workouts', 'account'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function NavBar() {
@@ -68,7 +68,7 @@ export default function NavBar() {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting: any) => (
+          {settings.map((setting) => (
             <MenuItem key={setting} onClick={handleCloseUserMenu}>
               <Typography textAlign="center">{setting}</Typography>
             </MenuItem>
@@ -130,13 +130,15 @@ export default function NavBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
+              <Link to={`/${page}`}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
                 {page}
               </Button>
+            </Link>
             ))}
           </Box>
           {userState.firstname ? userSettings() : null}
