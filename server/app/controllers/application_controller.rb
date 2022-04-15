@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
     before_action :authorized
+    attr_reader :current_user
 
     def encode_token(ingest)
         JWT.encode(ingest, 'tehehe')
