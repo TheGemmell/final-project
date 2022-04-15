@@ -1,24 +1,26 @@
-class WorkoutsController < ApplicationController
+class Api::V1::WorkoutsController < ApplicationController
   before_action :set_workout, only: [:show, :update, :destroy]
 
   # GET /workouts
   def index
-    @workouts = Workout.all
+    @workouts = Workout.where(user_id: current_user.id)
 
     render json: @workouts
   end
 
   # GET /workouts/1
   def show
-    render json: @workout
+    @exercises = Exercise.where(workout_id: @workout.id)
+    render json: {workout: @workout, exercises: @exercises}
   end
 
   # POST /workouts
   def create
     @workout = Workout.new(workout_params)
+    @workout.user_id = current_user.id
 
     if @workout.save
-      render json: @workout, status: :created, location: @workout
+      render json: @workout, status: :created
     else
       render json: @workout.errors, status: :unprocessable_entity
     end
@@ -46,6 +48,6 @@ class WorkoutsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def workout_params
-      params.require(:workout).permit(:title, :date, :user_id)
+      params.require(:workout).permit(:title, :description, :date)
     end
 end
