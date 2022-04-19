@@ -72,7 +72,7 @@ export default function WorkoutPage() {
               Edit
             </Button>
             <Button onClick={(e) => {
-              delWorkout(userState.token, workout.id)
+              delWorkout({userState, workout})
               }}>
               Remove
             </Button>

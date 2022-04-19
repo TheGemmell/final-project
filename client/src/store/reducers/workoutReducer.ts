@@ -15,13 +15,17 @@ type Workout = {
     user_id: number
 }
 
+interface State {
+    data: Workout[] | []
+}
+
 const add = createAction('workout/add')
 const fetch = createAction('workout/fetch')
 const remove = createAction('workout/delete')
 
 const initialState = {
     data: []
-}
+} as State
 
 
 
@@ -38,12 +42,10 @@ const workoutReducer = createReducer(initialState, (builder) => {
 
         })
         .addCase(remove, (state, action:Action) => {
-            // let token = action.payload.token
-            // let user = action.payload.user
-            // state.token = token
-            // state.firstname = user.firstname
-            // state.lastname = user.lastname
-            // state.username = user.username
+            const newState = state.data.filter((data) => {
+                return data.id !== action.payload
+            })
+            state.data = newState
         })
 })
 
