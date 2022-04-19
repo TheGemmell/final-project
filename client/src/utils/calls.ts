@@ -73,9 +73,35 @@ export async function getWorkouts(token: string) {
 
 }
 
-export async function getExercises(token: string, workoutId: number) {
+export async function getExercises(token: string, workoutId: string | number) {
     const options = {
         method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`
+        },
+    }
+
+    const answer = fetch(`${baseUrl}/workouts/${workoutId}`, options)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+            throw response
+        })
+        .then(response => {
+            return response
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    return answer
+}
+
+export async function delWorkout(token: string, workoutId: string | number) {
+    const options = {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'Authorization' : `Bearer ${token}`

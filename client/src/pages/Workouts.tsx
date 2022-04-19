@@ -3,10 +3,13 @@ import { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store/store'
-import { getWorkouts } from '../utils/calls'
+import { getWorkouts, delWorkout } from '../utils/calls'
 import Loader from '../components/Spinner'
 import toast from 'react-hot-toast'
 import Item from '../components/Item'
+import { bindActionCreators } from 'redux'
+import { useDispatch } from 'react-redux'
+import { actions } from '../store'
 
 interface Workout {
   id: number,
@@ -20,10 +23,13 @@ interface Workout {
 
 export default function WorkoutPage() {
   const navigate = useNavigate()
-  const [ workouts, setWorkouts ] = useState([])
   const userState = useSelector((globalState:RootState) => globalState.user);
+  const workouts = useSelector((state:RootState) => state.workouts.data)
+  const dispatch = useDispatch();
+  const AllActions = bindActionCreators(actions, dispatch);
+  const { fetchWorkouts, delWorkout, createWorkout } = AllActions;
   console.log('Auth: ', userState)
-  
+
   useEffect(() => {
     if (userState.token) {
       const workouts = getWorkouts(userState.token)
@@ -31,7 +37,7 @@ export default function WorkoutPage() {
         loading: 'Loading',
         success: (data) => {
           console.log(data)
-          setWorkouts(data)
+          fetchWorkouts(data)
           return 'Done!'
         },
         error: (err) => `Error: ${err.statusText}`,
@@ -41,12 +47,48 @@ export default function WorkoutPage() {
     }
 
   },[navigate, userState])
+  
+  function WorkoutTile({workout}: {workout: Workout}) {
+    const dateMade = new Date(workout.created_at).toDateString()
+  
+    return (
+      <Grid item xs={12} sm='auto' padding={2} minWidth='20%' key={workout.id}>
+        <Item>
+            <Grid item xs paddingRight={0}>
+              <Link to={`/workouts/${workout.id}`}>
+                <Typography variant="h4">
+                  {workout.title}
+                </Typography>
+                <Typography variant="h5" gutterBottom>
+                  {workout.description}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  Created: {dateMade}
+                </Typography>
+              </Link>
+            </Grid>
+          <Grid item>
+            <Button>
+              Edit
+            </Button>
+            <Button onClick={(e) => {
+              delWorkout(userState.token, workout.id)
+              }}>
+              Remove
+            </Button>
+          </Grid>
+        </Item>
+      </Grid>
+  );
+  }
+  
+
 
   return (
     <>
-    <Grid container maxWidth='100%' sm={12} lg={12} alignItems='center' justifyContent='center'>
+    <Grid container maxWidth='100%' alignItems='center' justifyContent='center'>
       {workouts ?
-      workouts.map(workout => <WorkoutTile workout={workout}/>)
+      workouts.map(workout => <WorkoutTile workout={workout} key={workout.id}/> )
       : <Loader show />
     }
     </Grid>
@@ -55,34 +97,3 @@ export default function WorkoutPage() {
   )
 }
 
-function WorkoutTile({workout}: {workout: Workout}) {
-  const dateMade = new Date(workout.created_at).toDateString()
-
-  return (
-    <Grid item xs={12} sm='auto' padding={2} minWidth='20%'>
-      <Item>
-          <Grid item xs paddingRight={0}>
-            <Link to={`/workouts/${workout.id}`}>
-              <Typography gutterBottom variant="h4">
-                {workout.title}
-              </Typography>
-              <Typography variant="h5" gutterBottom>
-                {workout.description}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                Created: {dateMade}
-              </Typography>
-            </Link>
-          </Grid>
-        <Grid item>
-          <Button>
-            Edit
-          </Button>
-          <Button>
-            Remove
-          </Button>
-        </Grid>
-      </Item>
-    </Grid>
-);
-}

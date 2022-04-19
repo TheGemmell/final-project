@@ -22,3 +22,23 @@ export const logIn = (payload:any) => {
         })
     }
 }
+
+export const fetchWorkouts = (payload:any) => {
+    console.log('Action fetchWorkouts, Payload: ', payload);
+    return (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+        dispatch({
+            type: 'workout/fetch',
+            payload: payload
+        })
+    }
+}
+
+export const delWorkout = (payload:any) => {
+    console.log('Action delWorkout, Payload: ', payload);
+    return (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+        dispatch({
+            type: 'workout/delete',
+            payload: payload
+        })
+    }
+}
