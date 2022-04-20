@@ -99,7 +99,7 @@ export async function getExercises(token: string, workoutId: string | number) {
     return answer
 }
 
-export async function delWorkout(token: string, workoutId: string | number) {
+export async function deleteWorkout(token: string, workoutId: string | number) {
     const options = {
         method: 'DELETE',
         headers: {
@@ -110,13 +110,37 @@ export async function delWorkout(token: string, workoutId: string | number) {
 
     const answer = fetch(`${baseUrl}/workouts/${workoutId}`, options)
         .then(response => {
+            console.log(response)
+            if (response.ok) {
+                return response
+            }
+            throw response
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    return answer
+}
+
+export async function createWorkout(token: string, body: any) {
+    console.log(token, body)
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`,
+        },
+        body: JSON.stringify(body)
+    }
+
+    const answer = fetch(`${baseUrl}/workouts`, options)
+        .then(response => {
+            console.log(response)
             if (response.ok) {
                 return response.json()
             }
             throw response
-        })
-        .then(response => {
-            return response
         })
         .catch(err => {
             console.log(err)

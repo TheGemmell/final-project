@@ -38,8 +38,7 @@ const workoutReducer = createReducer(initialState, (builder) => {
         })
         .addCase(add, (state, action:Action) => {
             console.log('userReducer.ts: User Created: ', action)
-
-
+            state.data = [action.payload, ...state.data]
         })
         .addCase(remove, (state, action:Action) => {
             const newState = state.data.filter((data) => {

@@ -1,8 +1,5 @@
 // Functions that fire/dispatches actions for the 
 // reducers to read and deal with  
-
-
-
 export const signUp = (payload:any) => {
     console.log('Action signUp, Payload: ', payload);
     return (dispatch: (arg0: { type: string; payload: any; }) => void) => {
@@ -41,4 +38,14 @@ export const delWorkout = (payload:any) => {
             payload: payload
         })
     }
+}
+
+export const addWorkout = (payload:any) => {
+    console.log('Action addWorkout, Payload: ', payload);
+    return (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+        dispatch({
+            type: 'workout/add',
+            payload: payload
+        })
+    }   
 }
