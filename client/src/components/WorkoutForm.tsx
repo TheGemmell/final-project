@@ -3,7 +3,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { createWorkout } from '../utils/calls';
 
-export default function CreateWorkoutForm({user, submitWork}): JSX.Element {
+export default function CreateWorkoutForm({user, submitWork}: {user: any, submitWork: Function}): JSX.Element {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
