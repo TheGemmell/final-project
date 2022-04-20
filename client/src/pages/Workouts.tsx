@@ -11,16 +11,7 @@ import { bindActionCreators } from 'redux'
 import { useDispatch } from 'react-redux'
 import { actions } from '../store'
 import WorkoutForm from '../components/WorkoutForm'
-
-interface Workout {
-  id: number,
-  created_at: string,
-  date: string,
-  description: string,
-  title: string,
-  updated_at: string,
-  user_id: number
-}
+import { Workout } from '../utils/types'
 
 export default function WorkoutPage() {
   const navigate = useNavigate()
@@ -51,7 +42,7 @@ export default function WorkoutPage() {
 
   const handleDeleteClick = (id:number) => {
     console.log('delete clicked', id)
-    const del = deleteWorkout(userState.token, id)
+    const del = deleteWorkout(userState.token as string, id)
     toast.promise(del, {
       loading: 'Loading',
       success: (data) => {
