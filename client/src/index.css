@@ -64,3 +64,17 @@ a {
   color: var(--text-color);
   text-decoration: none;;
 }
+
+.exercise-accordion {
+  text-align: center;
+  width: 100%;
+}
+
+.exercise-gap {
+  margin-top: 8px;
+  box-shadow: 0px 0px 2px 1px black;
+}
+
+.exercise-stack {
+  padding: 1.5vh;
+}

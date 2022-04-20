@@ -65,9 +65,9 @@ export default function DetailedWorkout() {
   return (
     <>
     {exercises ? 
-    <Accordion>
-    {exercises.map((exercise) => <Exercise exercise={exercise} />)}
-    </Accordion>
+    <div className="exercise-stack">
+    {exercises.map((exercise) => <Exercise exercise={exercise} key={exercise.id} />)}
+    </div>
     :
       <Loader show />
     }

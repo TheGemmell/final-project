@@ -4,16 +4,26 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Exercise } from '../utils/types'
 
-export default function SimpleAccordion({exercise}) {
+export default function SimpleAccordion({ exercise }: { exercise: Exercise }) {
   return (
-    <Accordion>
+    <div className="exercise-gap">
+      <Accordion sx={{}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
-          >
-          <Typography>Accordion 1</Typography>
+        >
+          <div className="exercise-accordion">
+          <Typography sx={{ width: '100%', flexShrink: 0, textAlign: 'center' }}>
+            {exercise.name}
+          </Typography>
+          <br/>
+          <Typography sx={{ color: 'text.secondary' }}>
+            {exercise.description}
+          </Typography>
+            </div>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -21,6 +31,7 @@ export default function SimpleAccordion({exercise}) {
             malesuada lacus ex, sit amet blandit leo lobortis eget.
           </Typography>
         </AccordionDetails>
-    </Accordion>
+      </Accordion>
+    </div>
   );
 }
