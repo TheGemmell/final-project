@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Exercise } from '../utils/types'
 
-export default function SimpleAccordion({ exercise }: { exercise: Exercise }) {
+export default function ExerciseAccordion({ exercise }: { exercise: Exercise }) {
   return (
     <div className="exercise-gap">
       <Accordion sx={{}}>
