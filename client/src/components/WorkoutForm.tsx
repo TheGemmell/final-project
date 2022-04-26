@@ -57,6 +57,7 @@ export default function CreateWorkoutForm({user, submitWork}: {user: any, submit
       />
       <Button
         type="submit"
+        color="secondary"
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
       >
@@ -64,7 +65,7 @@ export default function CreateWorkoutForm({user, submitWork}: {user: any, submit
       </Button>
       <Grid container>
         <Grid item>
-          <Button onClick={handleClose}>
+          <Button color="error" variant="outlined" onClick={handleClose}>
             Cancel
           </Button>
         </Grid>
@@ -75,7 +76,7 @@ export default function CreateWorkoutForm({user, submitWork}: {user: any, submit
 
   return (
     <div>
-      <Button onClick={handleToggle}>Create</Button>
+      <Button sx={{ ml: 2, boxShadow: 'black 0 0 2px 2px'}} variant="contained" color="success" onClick={handleToggle}>Add Workout</Button>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}

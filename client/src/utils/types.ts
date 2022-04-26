@@ -10,6 +10,7 @@ export type Workout = {
 };
 
 export type Exercise = {
+  id: number,
   name: string,
   description: string,
   sets: number,

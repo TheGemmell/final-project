@@ -12,6 +12,7 @@
   --color-red: #df3b3b;
   --color-green: #3bdf72;
   --color-gray: #b5bdc4;
+  --starting-color: rgb(41, 130, 165);
 }
 html,
 body {

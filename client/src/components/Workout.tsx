@@ -7,21 +7,10 @@ import { getExercises } from '../utils/calls';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { Params, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Loader from './Spinner';
-import Exercise from './Exercise';
-
-type Exercise = {
-  created_at: string,
-  updated_at: string,
-  id: number,
-  name: string,
-  description: string,
-  sets: number,
-  status: string,
-  weight: number,
-  workout_id: number,
-}
+import ExerciseAccordion from './Exercise';
+import { Exercise } from '../utils/types'
 
 type WorkoutParams = {
   workoutId: string
@@ -32,16 +21,6 @@ export default function DetailedWorkout() {
   const navigate = useNavigate()
   const userState = useSelector((globalState: RootState) => globalState.user);
   let { workoutId } = useParams<WorkoutParams>();
-
-
-  function makeSetBoxes(exercise: Exercise) {
-    for (let i = 0; i < exercise.sets; i++) {
-
-    }
-    // return (
-
-    // )
-  }
 
   useEffect(() => {
     if (userState.token && workoutId) {
@@ -66,7 +45,7 @@ export default function DetailedWorkout() {
     <>
     {exercises ? 
     <div className="exercise-stack">
-    {exercises.map((exercise) => <Exercise exercise={exercise} key={exercise.id} />)}
+    {exercises.map((exercise) => <ExerciseAccordion exercise={exercise} key={exercise.id} />)}
     </div>
     :
       <Loader show />
