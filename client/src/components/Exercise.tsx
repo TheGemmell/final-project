@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Exercise } from '../utils/types'
 import { Button } from '@mui/material';
+import React from 'react';
 
 const colours = {
   "start": "#5886e8",
@@ -20,24 +21,37 @@ function statusColour(status: string): string {
 export default function ExerciseAccordion({ exercise }: { exercise: Exercise })  {
 
   let statusButton = (status: string) => {
+    const handleStatusPress = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      switch ((e.currentTarget.innerText).toLowerCase()) {
+        case "finish":
+
+        break
+        case "start":
+
+        break
+      }
+
+    }
+
+
     switch (status) {
       case "done":
         return (
-          <Button variant="contained" disabled className="exercise-done">
+          <Button variant="text" disabled className="exercise-status">
             Complete
           </Button>
         )
       case "progress":
         return (
-          <Button variant="contained" className="exercise-done">
+          <Button variant="contained" onClick={handleStatusPress} className="exercise-status">
             Finish
           </Button>
         )
       case "start":
         return (
-          <Button variant="contained" className="exercise-done">
+          <Button variant="contained" className="exercise-status">
             Start
-          </Button>          
+          </Button>
         )
       default:
       break;
