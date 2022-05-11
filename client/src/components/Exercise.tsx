@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Exercise } from '../utils/types'
+import { Button } from '@mui/material';
 
 const colours = {
   "start": "#5886e8",
@@ -16,7 +17,33 @@ function statusColour(status: string): string {
   return colours[status as "start" || "progress" || "done"]
 }
 
-export default function ExerciseAccordion({ exercise }: { exercise: Exercise }) {
+export default function ExerciseAccordion({ exercise }: { exercise: Exercise })  {
+
+  let statusButton = (status: string) => {
+    switch (status) {
+      case "done":
+        return (
+          <Button variant="contained" disabled className="exercise-done">
+            Complete
+          </Button>
+        )
+      case "progress":
+        return (
+          <Button variant="contained" className="exercise-done">
+            Finish
+          </Button>
+        )
+      case "start":
+        return (
+          <Button variant="contained" className="exercise-done">
+            Start
+          </Button>          
+        )
+      default:
+      break;
+    }
+  }
+
   return (
     <div className="exercise-gap">
       <Accordion sx={{backgroundColor: statusColour(exercise.status)}} className="exercise-start">
@@ -29,8 +56,8 @@ export default function ExerciseAccordion({ exercise }: { exercise: Exercise }) 
           <Typography variant='h3' sx={{ width: '100%', flexShrink: 0, textAlign: 'center' }}>
             {exercise.name}
           </Typography>
-          {/* Don't ask. */}
           </div>
+          {statusButton(exercise.status)}
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

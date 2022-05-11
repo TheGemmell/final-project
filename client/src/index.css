@@ -79,3 +79,7 @@ a {
 .exercise-stack {
   padding: 1.5vh;
 }
+
+.exercise-done {
+  float: right;
+}
