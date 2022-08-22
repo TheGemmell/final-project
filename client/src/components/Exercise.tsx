@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Exercise } from '../utils/types'
 import { Button } from '@mui/material';
 import React from 'react';
+import { updateExercise } from '../utils/calls';
 
 const colours = {
   "start": "#5886e8",
@@ -19,12 +20,14 @@ function statusColour(status: string): string {
 }
 
 export default function ExerciseAccordion({ exercise }: { exercise: Exercise })  {
+  const [status, setStatus] = useState(exercise.status)
 
   let statusButton = (status: string) => {
     const handleStatusPress = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      switch ((e.currentTarget.innerText).toLowerCase()) {
+      switch (status) {
         case "finish":
-
+          updateExercise(exercise)
+          setStatus("done")          
         break
         case "start":
 
@@ -49,7 +52,7 @@ export default function ExerciseAccordion({ exercise }: { exercise: Exercise }) 
         )
       case "start":
         return (
-          <Button variant="contained" className="exercise-status">
+          <Button variant="contained" onClick={handleStatusPress} className="exercise-status">
             Start
           </Button>
         )
@@ -60,7 +63,7 @@ export default function ExerciseAccordion({ exercise }: { exercise: Exercise }) 
 
   return (
     <div className="exercise-gap">
-      <Accordion sx={{backgroundColor: statusColour(exercise.status)}} className="exercise-start">
+      <Accordion sx={{backgroundColor: statusColour(status)}} className="exercise-start">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -71,7 +74,7 @@ export default function ExerciseAccordion({ exercise }: { exercise: Exercise }) 
             {exercise.name}
           </Typography>
           </div>
-          {statusButton(exercise.status)}
+          {statusButton(status)}
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

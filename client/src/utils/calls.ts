@@ -99,6 +99,33 @@ export async function getExercises(token: string, workoutId: string | number) {
     return answer
 }
 
+export async function updateExercise(token: string, exerciseId: string | number, body: any) {
+    const options = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
+    }
+
+    const answer = fetch(`${baseUrl}/exercises/${exerciseId}`, options)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+            throw response
+        })
+        .then(response => {
+            return response
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    return answer
+}
+
 export async function deleteWorkout(token: string, workoutId: string | number) {
     const options = {
         method: 'DELETE',
