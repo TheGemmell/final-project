@@ -1,8 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Grid, Box, Accordion } from '@mui/material/';
-import Typography from '@mui/material/Typography';
-import Item from './Item';
-import { Stack } from '@mui/material';
 import { getExercises } from '../utils/calls';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
